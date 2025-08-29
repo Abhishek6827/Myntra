@@ -6,28 +6,26 @@ const { getStoredItems, storeItems } = require("./data/items");
 const app = express();
 
 // Middleware
+app.use(cors());
 app.use(bodyParser.json());
-app.use(cors()); // CORS middleware add किया
 
-// Render.com के लिए dynamic port handling
-const PORT = process.env.PORT || 8080;
-
-// Root route add किया
+// ✅ Root route add करें
 app.get("/", (req, res) => {
   res.json({
-    message: "Myntra Backend API is working!",
+    message: "Myntra Backend API is working! 🚀",
     endpoints: {
-      getItems: "/items",
-      getItem: "/items/:id",
-      addItem: "/items",
+      get_all_items: "/items",
+      get_single_item: "/items/:id",
+      add_new_item: "/items (POST)",
     },
+    documentation: "Use /items to get all products data",
   });
 });
 
+// Existing routes - ये पहले से ही work कर रही हैं
 app.get("/items", async (req, res) => {
   try {
     const storedItems = await getStoredItems();
-    // Timeout reduce किया 2s से 1s
     await new Promise((resolve) => setTimeout(resolve, 1000));
     res.json({ items: storedItems });
   } catch (error) {
@@ -64,6 +62,7 @@ app.post("/items", async (req, res) => {
   }
 });
 
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
