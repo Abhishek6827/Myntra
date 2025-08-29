@@ -5,6 +5,7 @@ const itemsSlice = createSlice({
   initialState: [],
   reducers: {
     addInitialItems: (state, action) => {
+      // ✅ सीधे items return करें, items[0] नहीं
       return action.payload;
     },
   },
