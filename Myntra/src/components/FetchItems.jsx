@@ -15,7 +15,6 @@ const FetchItems = () => {
 
     dispatch(fetchStatusActions.markFetchingStarted());
 
-    // ✅ Render.com backend URL use करें
     fetch("https://myntra-backend-3ahi.onrender.com/items", { signal })
       .then((res) => {
         if (!res.ok) {
@@ -24,32 +23,41 @@ const FetchItems = () => {
         return res.json();
       })
       .then(({ items }) => {
+        // ✅ items[0] access करें क्योंकि data nested array में है
+        const products = items[0] || [];
+
+        // Validate and add default ratings if missing
+        const validatedItems = products.map((item) => ({
+          ...item,
+          rating: item.rating || { stars: 0, count: 0 },
+          return_period: item.return_period || 0,
+          delivery_date: item.delivery_date || "",
+        }));
+
         dispatch(fetchStatusActions.markFetchDone());
         dispatch(fetchStatusActions.markFetchingFinished());
-        // ✅ items[0] की जगह सीधे items use करें
-        dispatch(itemsActions.addInitialItems(items));
+        dispatch(itemsActions.addInitialItems(validatedItems));
       })
       .catch((error) => {
-        // Only handle the error if it's not an abort error
         if (error.name !== "AbortError") {
           console.error("Fetch error:", error);
           dispatch(fetchStatusActions.markFetchingFinished());
 
-          // Fallback: Mock data use करें अगर API fail हो
+          // Fallback: Mock data
           const mockItems = [
             {
               id: "001",
-              image: "/images/1.jpg",
+              image: "images/1.jpg",
               company: "Carlton London",
               item_name: "Rhodium-Plated CZ Floral Studs",
               original_price: 1045,
               current_price: 606,
               discount_percentage: 42,
               return_period: 14,
-              delivery_date: "10 Oct 2023",
+              delivery_date: "10 Oct 2025",
               rating: { stars: 4.5, count: 1400 },
             },
-            // Add more mock items if needed
+            // ... other items
           ];
 
           dispatch(fetchStatusActions.markFetchDone());

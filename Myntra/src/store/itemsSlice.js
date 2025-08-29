@@ -5,8 +5,13 @@ const itemsSlice = createSlice({
   initialState: [],
   reducers: {
     addInitialItems: (state, action) => {
-      // ✅ सीधे items return करें, items[0] नहीं
-      return action.payload;
+      // Validate and ensure all items have required fields
+      return action.payload.map((item) => ({
+        ...item,
+        rating: item.rating || { stars: 0, count: 0 },
+        return_period: item.return_period || 0,
+        delivery_date: item.delivery_date || "",
+      }));
     },
   },
 });
