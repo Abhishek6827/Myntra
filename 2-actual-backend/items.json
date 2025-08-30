@@ -44,7 +44,7 @@
         "item_name": "Indian Cricket ODI Jersey",
         "original_price": 999,
         "current_price": 999,
-        "discount_percentage": 0,
+        "discount_percentage": 15,
         "return_period": 14,
         "delivery_date": "10 Oct 2025",
         "rating": { "stars": 5, "count": 10 }
@@ -68,10 +68,10 @@
         "item_name": "Men ReactX Running Shoes",
         "original_price": 14995,
         "current_price": 14995,
-        "discount_percentage": 0,
+        "discount_percentage": 63,
         "return_period": 14,
         "delivery_date": "10 Oct 2025",
-        "rating": { "stars": 0, "count": 0 }
+        "rating": { "stars": 2.3, "count": 576 }
       },
       {
         "id": "007",
@@ -81,6 +81,8 @@
         "original_price": 1599,
         "current_price": 639,
         "discount_percentage": 60,
+        "return_period": 14,
+        "delivery_date": "10 Oct 2025",
         "rating": { "stars": 4.2, "count": 388 }
       },
       {
